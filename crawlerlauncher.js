@@ -16,17 +16,17 @@ var crawlerSerebii = function(pokemonNumber) {
 
         lv50.each(function() {
             var dataLV50 = $(this).text();
-            text50 += dataLV50.replace('-', ';') + " | ";
+            text50 += dataLV50.replace('-', ';') + " ; ";
         });
 
-        fs.appendFile('serebii2.txt', pokemonNumber + ' ; ' + text50.replace('Max StatsNeutral Nature | ', '') + '\n');
+        fs.appendFile('pkmnStatsresult.txt', pokemonNumber + ' ; ' + text50.replace('Max StatsNeutral Nature ; ', '') + '\n');
 
         lv100.each(function() {
             var dataLV100 = $(this).text();
-            text100 += dataLV100.replace('-', ';') + " | ";
+            text100 += dataLV100.replace('-', ';') + " ; ";
         });
 
-        fs.appendFile('serebii2.txt', pokemonNumber + ' ; ' + text100.trim() + '\n');
+        fs.appendFile('pkmnStatsresult.txt', pokemonNumber + ' ; ' + text100.trim() + '\n');
     })
 }
 
@@ -44,17 +44,17 @@ var correctPokemonNumber = function(pokemonNumber) {
 
 var total = 802;
 var count = 1;
-var myVar = setInterval(function() { myTimer() }, 2000);
+var interval = setInterval(function() { requestSerebiiCrawler() }, 2000);
 
-function myTimer() {
+function requestSerebiiCrawler() {
     if (count >= total)
-        myStopFunction();
+        stopCrawler();
 
     crawlerSerebii(correctPokemonNumber(count));
     console.log(count);
     count++;
 }
 
-function myStopFunction() {
-    clearInterval(myVar);
+function stopCrawler() {
+    clearInterval(interval);
 }
